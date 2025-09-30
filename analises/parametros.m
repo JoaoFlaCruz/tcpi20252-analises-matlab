@@ -5,16 +5,16 @@ P = struct();
 P.g = 9.81;
 
 % Área da seção de cada tanque (m^2)
-P.A1 = pi*(3e-2)^2;
+P.A1 = pi*(4.5e-2)^2;
 P.A2 = pi*(4e-2)^2;
-P.A3 = pi*(2e-2)^2;
+P.A3 = pi*(3e-2)^2;
 P.A4 = pi*(3e-2)^2;
 
 % Área do orifício de cada tanque (m^2)
-P.a1 = pi*(3e-3)^2; 
+P.a1 = pi*(4e-3)^2; 
 P.a2 = pi*(2.5e-3)^2;
-P.a3 = P.a1;
-P.a4 = P.a1;
+P.a3 = pi*(3.4e-3)^2;
+P.a4 = pi*(2.5e-3)^2;
 
 % Ganho de cada bomba (m^3/(s*V))
 P.k1 = 2.7e-5;
@@ -24,10 +24,10 @@ P.k2 = 2.3e-5;
 P.vb = 10;
 
 % Razao de distribuicao das válvulas
-P.gamma1 = 0.60;    % Tanque 1
-P.gamma2 = 0.65;    % Tanque 2
-P.gamma3 = 0.35;    % Tanque 3
-P.gamma4 = 0.40;    % Tanque 4
+P.gamma1 = 0.70;    % Tanque 1
+P.gamma2 = 0.60;    % Tanque 2
+P.gamma3 = 0.40;    % Tanque 3
+P.gamma4 = 0.30;    % Tanque 4
 
 % Configuração de visualização dos dados
 S = struct();
