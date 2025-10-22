@@ -19,7 +19,9 @@ which_outputs = 'all';
 
 [sys_lin, yop, eigA] = linearizar(xop, uop, P, which_outputs)
 
-A = sys_lin.A
+A = sys_lin.A;
+B = sys_lin.B;
+C = sys_lin.C;
 
 %% ====== Perfil de degraus em variáveis de desvio (Δu) ======
 Tf = 1800;              % horizonte (s) – ajuste como preferir
@@ -176,3 +178,11 @@ legend({'Tanque 1 (NL)','Tanque 1 (LIN)', ...
         'Tanque 2 (NL)','Tanque 2 (LIN)', ...
         'Tanque 3 (NL)','Tanque 3 (LIN)', ...
         'Tanque 4 (NL)','Tanque 4 (LIN)'}, 'Location','best');
+
+%% Matriz de transferência
+G = tf(sys_lin)
+
+G_11 = tf([0.0537], [18.07, 1]);
+G_12 = tf([0.1102], [1107.54, 84.583, 1]);
+G_21 = tf([0.0261], [78.4314, 22.4157, 1]);
+G_22 = tf([0.1877], [68.3994, 1]);
