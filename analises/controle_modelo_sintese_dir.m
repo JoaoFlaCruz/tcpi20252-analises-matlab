@@ -2,21 +2,19 @@ run("modelagem_linear.m");
 
 %% Calculo dos controladores PI por sintese direta
 
-G_11
-G_22
-T1 = tf([1], [6, 1]);
-T2 = tf([1], [22, 1]);
+(pole(G_11)*-1).^-1;
+(pole(G_12)*-1).^-1;
+(pole(G_21)*-1).^-1;
+(pole(G_22)*-1).^-1;
 
-C1 = (1/G_11)*(T1/(1 - T1));
-C2 = (1/G_22)*(T2/(1 - T2));
+% Alvos
+T1 = tf(1,[6 1]);
+T2 = tf(1,[22 1]);
 
-FR1 = tf([1], [108.4, 24.07, 1]);
-FR2 = tf([1], [1505, 90.4, 1]);
+% Controladores por síntese direta (corretos)
+C1 = tf([56.083, 3.1037],[1,0]);      % = 56.083 + 3.1037/s
+C2 = tf([16.564, 0.24217],[1,0]);     % = 16.564 + 0.24217/s
 
-%% Calculo manual
-
-C1 = tf([18.07, 1],[0.3222, 0]);
-C2 = tf([68.4, 1], [4.1294, 0]);
-
-FR1 = tf([1], [18.07, 1]);
-FR2 = tf([1], [68.4, 1]);
+% Filtros de referência que cancelam o zero do PI
+FR1 = tf(3.1037,[56.083 3.1037]);     % = 1/(18.07 s + 1)
+FR2 = tf(0.24217,[16.564 0.24217]);   % = 1/(68.4  s + 1)
