@@ -1,10 +1,8 @@
-% Plantas
-G11 = tf(0.0537, [18.07 1]);
-G22 = tf(0.1877, [68.4  1]);
+run("modelagem_linear.m");
 
 % Especificações por alocação (zeta, wn = 1/lambda para casar Ts ~ 4*lambda)
 zeta = 1.0;
-lambda1 = 6;   wn1 = 1/lambda1;
+lambda1 = 22;   wn1 = 1/lambda1;
 lambda2 = 22;  wn2 = 1/lambda2;
 
 % Parâmetros das plantas
@@ -38,7 +36,9 @@ Ti1 = Kp1 / Ki1;
 Kc2 = Kp2;
 Ti2 = Kp2 / Ki2;
 
-alpha_ti = 100;
+% Ti_atual = alpha_ti*Ti_antigo;
+alpha_ti = 1;
+alpha_p = 5;
 
 % Dessintonizar o valor de Kc de acordo aos parametros de acoplamento
 
@@ -47,6 +47,21 @@ lambda = 1.4;
 Kc1 = Kc1*(lambda - sqrt(lambda^2 - lambda));
 Kc2 = Kc2*(lambda - sqrt(lambda^2 - lambda));
 
-% Mostrando os pares (K, Ti) ao final
-fprintf('Malha 1: K = %.4f, Ti = %.4f s\n', Kc1, Ti1);
-fprintf('Malha 2: K = %.4f, Ti = %.4f s\n', Kc2, Ti2);
+% Conversão de (K, Ti) -> (Kp, Ki)
+Kp1 = Kc1;
+Ki1 = Kc1 / Ti1;
+
+Kp2 = Kc2;
+Ki2 = Kc2 / Ti2;
+
+s = tf('s');
+
+% Controladores no formato (Kp*s + Ki)/s
+C1 = (Kp1*s + Ki1)/s;   % malha 1
+C2 = (Kp2*s + Ki2)/s;   % malha 2
+
+% Mostrando os pares (K, Ti) e (Kp, Ki)
+fprintf('Malha 1: K = %.4f, Ti = %.4f s  ->  Kp = %.4f, Ki = %.4f\n', ...
+        Kc1, Ti1, Kp1, Ki1);
+fprintf('Malha 2: K = %.4f, Ti = %.4f s  ->  Kp = %.4f, Ki = %.4f\n', ...
+        Kc2, Ti2, Kp2, Ki2);

@@ -4,7 +4,7 @@ clear; clc;
 run("parametros.m");
 
 % Pontos de operação
-h1_op = 0.10;
+h1_op = 0.25;
 h2_op = 0.35;
 
 % Tipo de plot desejado
@@ -182,13 +182,13 @@ legend({'Tanque 1 (NL)','Tanque 1 (LIN)', ...
 %% Matriz de transferência
 G = tf(sys_lin)
 
-G_11 = tf([0.0537], [18.07, 1]);
-G_12 = tf([0.1102], [1107.54, 84.583, 1]);
-G_21 = tf([0.0261], [78.4314, 22.4157, 1]);
-G_22 = tf([0.1877], [68.3994, 1]);
+s = tf('s');
 
-((pole(G_11).^-1).*-1)
-((pole(G_12).^-1).*-1)
-((pole(G_21).^-1).*-1)
-((pole(G_22).^-1).*-1)
+G11 = 0.1586 / (70.97*s + 1);   % da entrada 1 para saída 1
+G12 = 0.0831 / (70.97*s + 1);   % da entrada 2 para saída 1
 
+G21 = 0.0893 / (74.18*s + 1);   % da entrada 1 para saída 2
+G22 = 0.1303 / (74.18*s + 1);   % da entrada 2 para saída 2
+
+G_aprox = [G11  G12;
+           G21  G22]

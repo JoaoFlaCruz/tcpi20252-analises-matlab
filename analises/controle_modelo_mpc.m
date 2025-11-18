@@ -2,18 +2,18 @@ run("modelagem_linear.m");
 
 %% Calculo da matriz de transferência discretizada
 
-(pole(G_11)*-1).^-1;
-(pole(G_12)*-1).^-1;
-(pole(G_21)*-1).^-1;
-(pole(G_22)*-1).^-1;
+(pole(G11)*-1).^-1;
+(pole(G12)*-1).^-1;
+(pole(G21)*-1).^-1;
+(pole(G22)*-1).^-1;
 
-G = [G_11, G_12; G_21, G_22];
+G = [G11, G12; G21, G22];
 Ts = 0.1;
 Gz = c2d(G, Ts, 'zoh')
 
 %% Criação do controlador MPC
-P = 10;         % Horizonte de predição
-M = 3;          % Horizonte de controle
+P = 20;         % Horizonte de predição
+M = 6;          % Horizonte de controle
 
 mpcobj = mpc(Gz, Ts, P, M);
 
